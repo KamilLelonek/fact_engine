@@ -22,10 +22,11 @@ defmodule Mix.Tasks.ParseTest do
     end
 
     test "should parse the given input" do
-      Parse.run(["--input", "test/fixtures/in.txt", "--output", "out.txt"])
+      for directory <- 3..4 do
+        Parse.run(["--input", "test/fixtures/#{directory}/in.txt", "--output", @output_file])
 
-      assert File.read!(@output_file) =~
-               "---\nfalse\n---\nX:  lucy  \n---\nX:  garfield  \n---\nX:  bowler_cat  \n---\nFavoriteFood:  lasagna  \n"
+        assert File.read!(@output_file) =~ File.read!("test/fixtures/#{directory}/out.txt")
+      end
     end
   end
 end
