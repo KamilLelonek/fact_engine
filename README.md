@@ -1,6 +1,10 @@
 # fact_engine
 
-**TODO: Add description**
+## Usage
+
+```bash
+mix parse --input <path_to_input_file> --output <path_to_output_file>
+```
 
 ## Installation
 
