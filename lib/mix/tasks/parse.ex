@@ -51,7 +51,7 @@ defmodule Mix.Tasks.Parse do
   defp format_response(response, file) when is_map(response) do
     response
     |> Map.keys()
-    |> Enum.each(&IO.puts(file, [&1, ":  ", response[&1], "  "]))
+    |> Enum.each(&IO.puts(file, [&1, ": ", response[&1]]))
   end
 
   defp format_response(response, file), do: IO.puts(file, inspect(response))
