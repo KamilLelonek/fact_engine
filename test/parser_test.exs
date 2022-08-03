@@ -11,6 +11,8 @@ defmodule FactEngine.ParserTest do
   @query_single_substitution "QUERY are_friends (X, sam)"
   @query_multiple_substitutions "QUERY are_friends (X, Y)"
   @query_complex_substitutions "QUERY loves (garfield, FavoriteFood)"
+  @input_triple "INPUT make_a_triple (5, 12, 13)"
+  @query_triple "QUERY make_a_triple (X, 4, Y)"
 
   describe "call/1" do
     test "should parse the given INPUT with a single Attribute" do
@@ -62,12 +64,34 @@ defmodule FactEngine.ParserTest do
     end
 
     test "should parse the given QUERY with a complex Substitution" do
-      assert %FactEngine.Action{
+      assert %Action{
                arity: 2,
-               attributes: ["garfield", %FactEngine.Substitution{symbol: "FavoriteFood"}],
+               attributes: ["garfield", %Substitution{symbol: "FavoriteFood"}],
                fact: "loves",
                type: "QUERY"
              } = Parser.call(@query_complex_substitutions)
+    end
+
+    test "should parse the given triple inside a QUERY" do
+      assert %Action{
+               arity: 3,
+               attributes: [
+                 %Substitution{symbol: "X"},
+                 "4",
+                 %Substitution{symbol: "Y"}
+               ],
+               fact: "make_a_triple",
+               type: "QUERY"
+             } = Parser.call(@query_triple)
+    end
+
+    test "should parse the given triple inside an INPUT" do
+      assert %Action{
+               arity: 3,
+               attributes: ["5", "12", "13"],
+               fact: "make_a_triple",
+               type: "INPUT"
+             } = Parser.call(@input_triple)
     end
   end
 end

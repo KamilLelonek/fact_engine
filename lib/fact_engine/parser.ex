@@ -4,7 +4,7 @@ defmodule FactEngine.Parser do
 
   @delimiter ", "
   @regex_line ~r/[[:space:]]/
-  @regex_attributes ~r/[[:alpha:] | [:space:] | _ | #{@delimiter}]+/
+  @regex_attributes ~r/[[:alnum:] | [:space:] | _ | #{@delimiter}]+/
   @regex_substitution ~r/^[[:upper:]]{1}[[:alnum:]]*$/
 
   @doc """
